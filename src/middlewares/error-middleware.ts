@@ -8,7 +8,10 @@ export const errorMiddleware = (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  if (err instanceof mongoose.Error.ValidatorError) {
+  if (
+    err instanceof mongoose.Error.ValidatorError ||
+    err instanceof mongoose.Error.CastError
+  ) {
     res
       .status(Shared.Constants.HTTP_STATUS_CODES.BAD_REQUEST)
       .send({ message: err.message });

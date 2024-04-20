@@ -7,7 +7,7 @@ export const notFoundMiddleware = (
   next: express.NextFunction,
 ) => {
   const notFoundError = new Shared.Utils.Errors.NotFoundError(
-    "Несуществующий адрес",
+    Shared.Constants.ERROR_MESSAGES.NOT_FOUND,
   );
 
   res.status(notFoundError.status).json({ message: notFoundError.message });
