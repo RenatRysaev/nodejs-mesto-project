@@ -16,7 +16,6 @@ export const createCard = async (
       link,
       owner: userId,
       likes: [],
-      createdAt: new Date(),
     });
 
     res.status(Shared.Constants.HTTP_STATUS_CODES.CREATED).json(card);

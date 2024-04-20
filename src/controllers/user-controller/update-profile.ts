@@ -16,9 +16,7 @@ export const updateProfile = async (
         name: req.body.name,
         about: req.body.about,
       },
-      {
-        new: true,
-      },
+      { new: true, runValidators: true },
     );
 
     if (!user) {
@@ -27,7 +25,7 @@ export const updateProfile = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(user);
+    res.json(user);
   } catch (error) {
     next(error);
   }

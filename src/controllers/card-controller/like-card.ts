@@ -13,7 +13,7 @@ export const likeCard = async (
         _id: req.params.cardId,
       },
       { $addToSet: { likes: req.user._id } },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!card) {
@@ -22,7 +22,7 @@ export const likeCard = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(card);
+    res.json(card);
   } catch (error) {
     next(error);
   }

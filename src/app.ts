@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import celebrate from "celebrate";
+import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
 import { Routes } from "./routes";
 import { Middlewares } from "./middlewares";
 
@@ -19,6 +21,13 @@ async function main() {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(helmet());
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+  });
+  app.use(limiter);
 
   app.use(Middlewares.authMiddleware);
 
@@ -27,6 +36,7 @@ async function main() {
 
   app.use(celebrate.errors());
   app.use(Middlewares.errorMiddleware);
+  app.use(Middlewares.notFoundMiddleware);
 
   app.listen(PORT, () => {
     console.info(`App listening on port ${PORT}`);

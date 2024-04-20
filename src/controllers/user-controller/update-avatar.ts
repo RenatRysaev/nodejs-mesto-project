@@ -13,7 +13,7 @@ export const updateAvatar = async (
     const user = await Models.UserModel.findOneAndUpdate(
       { _id: userId },
       { avatar: req.body.avatar },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!user) {
@@ -22,7 +22,7 @@ export const updateAvatar = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(user);
+    res.json(user);
   } catch (error) {
     next(error);
   }

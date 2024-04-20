@@ -11,7 +11,7 @@ export const dislikeCard = async (
     const card = await Models.CardModel.findOneAndUpdate(
       { _id: req.params.cardId },
       { $pull: { likes: req.user._id } },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!card) {
@@ -20,7 +20,7 @@ export const dislikeCard = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(card);
+    res.json(card);
   } catch (error) {
     next(error);
   }

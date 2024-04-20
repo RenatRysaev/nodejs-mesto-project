@@ -18,7 +18,7 @@ export const deleteCard = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(card);
+    res.json(card);
   } catch (error) {
     next(error);
   }

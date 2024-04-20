@@ -16,7 +16,7 @@ export const getUserById = async (
       );
     }
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.OK).json(user);
+    res.json(user);
   } catch (error) {
     next(error);
   }
