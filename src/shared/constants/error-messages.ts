@@ -5,4 +5,5 @@ export const ERROR_MESSAGES = {
   NOT_FOUND: "Несуществующий адрес",
   INCORRECT_EMAIL_OR_PASSWORD: "Неправильные почта или пароль",
   FORBIDDEN: "Недостаточно прав",
+  CONFLICT: "Конфликт",
 } as const;

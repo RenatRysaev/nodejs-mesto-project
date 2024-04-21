@@ -30,10 +30,12 @@ async function main() {
     limit: 100,
   });
   app.use(limiter);
+  app.use(Middlewares.requestLoggerMiddleware);
 
   app.use(Routes.userRouter);
   app.use(Routes.cardRouter);
 
+  app.use(Middlewares.errorLoggerMiddleware);
   app.use(celebrate.errors());
   app.use(Middlewares.errorMiddleware);
   app.use(Middlewares.notFoundMiddleware);

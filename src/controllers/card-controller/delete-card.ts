@@ -24,11 +24,11 @@ export const deleteCard = async (
       throw new Shared.Utils.Errors.ForbiddenError();
     }
 
-    const deletedCard = await Models.CardModel.deleteOne({
+    await Models.CardModel.deleteOne({
       _id: req.params.cardId,
     });
 
-    res.json(deletedCard);
+    res.json(card);
   } catch (error) {
     next(error);
   }

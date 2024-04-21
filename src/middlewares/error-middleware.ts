@@ -1,6 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
 import { Shared } from "../shared";
 
 export const errorMiddleware = (
@@ -9,10 +7,7 @@ export const errorMiddleware = (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  if (
-    err instanceof mongoose.Error.ValidatorError ||
-    err instanceof mongoose.Error.CastError
-  ) {
+  if (err.name === "ValidationError" || err.name === "CastError") {
     res
       .status(Shared.Constants.HTTP_STATUS_CODES.BAD_REQUEST)
       .send({ message: err.message });
@@ -20,7 +15,17 @@ export const errorMiddleware = (
     return;
   }
 
-  if (err instanceof jwt.TokenExpiredError) {
+  const isConflictError = err.code === 11000;
+
+  if (isConflictError) {
+    const conflictError = new Shared.Utils.Errors.ConflictError();
+
+    res.status(conflictError.status).send({ message: conflictError.message });
+
+    return;
+  }
+
+  if (err.name === "TokenExpiredError") {
     const unauthorizedError = new Shared.Utils.Errors.UnauthorizedError();
 
     res

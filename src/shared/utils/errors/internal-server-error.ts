@@ -8,7 +8,7 @@ export class InternalServerError extends Error implements IError {
 
   constructor() {
     super();
-    this.message = "На сервере произошла ошибка";
+    this.message = Constants.ERROR_MESSAGES.INTERNAL_SERVER_ERROR;
     this.status = Constants.HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR;
   }
 }
