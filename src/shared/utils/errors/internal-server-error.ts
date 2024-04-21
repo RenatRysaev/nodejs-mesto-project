@@ -3,6 +3,7 @@ import { Constants } from "../../constants";
 
 export class InternalServerError extends Error implements IError {
   public message: string;
+
   public status: number;
 
   constructor() {

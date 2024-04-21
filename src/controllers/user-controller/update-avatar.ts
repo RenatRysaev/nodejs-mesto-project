@@ -7,9 +7,9 @@ export const updateAvatar = async (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  const userId = req.user._id;
-
   try {
+    const userId = req.user._id;
+
     const user = await Models.UserModel.findOneAndUpdate(
       { _id: userId },
       { avatar: req.body.avatar },

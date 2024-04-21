@@ -8,7 +8,9 @@ export const deleteCard = async (
   next: express.NextFunction,
 ) => {
   try {
-    const card = await Models.CardModel.findOneAndDelete({
+    const userId = req.user._id;
+
+    const card = await Models.CardModel.findOne({
       _id: req.params.cardId,
     });
 
@@ -18,7 +20,15 @@ export const deleteCard = async (
       );
     }
 
-    res.json(card);
+    if (card.owner.toString() !== userId) {
+      throw new Shared.Utils.Errors.ForbiddenError();
+    }
+
+    const deletedCard = await Models.CardModel.deleteOne({
+      _id: req.params.cardId,
+    });
+
+    res.json(deletedCard);
   } catch (error) {
     next(error);
   }

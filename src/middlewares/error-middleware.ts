@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import { Shared } from "../shared";
 
 export const errorMiddleware = (
@@ -15,6 +16,16 @@ export const errorMiddleware = (
     res
       .status(Shared.Constants.HTTP_STATUS_CODES.BAD_REQUEST)
       .send({ message: err.message });
+
+    return;
+  }
+
+  if (err instanceof jwt.TokenExpiredError) {
+    const unauthorizedError = new Shared.Utils.Errors.UnauthorizedError();
+
+    res
+      .status(unauthorizedError.status)
+      .send({ message: unauthorizedError.message });
 
     return;
   }

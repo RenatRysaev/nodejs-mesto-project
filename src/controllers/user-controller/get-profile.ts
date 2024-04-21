@@ -2,13 +2,15 @@ import express from "express";
 import { Models } from "../../models";
 import { Shared } from "../../shared";
 
-export const getUserById = async (
+export const getProfile = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
 ) => {
   try {
-    const user = await Models.UserModel.findById(req.params.userId);
+    const userId = req.user._id;
+
+    const user = await Models.UserModel.findById(userId);
 
     if (!user) {
       throw new Shared.Utils.Errors.NotFoundError(

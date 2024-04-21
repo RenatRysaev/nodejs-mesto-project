@@ -7,10 +7,10 @@ export const createCard = async (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  const { name, link } = req.body;
-  const userId = req.user._id;
-
   try {
+    const { name, link } = req.body;
+    const userId = req.user._id;
+
     const card = await Models.CardModel.create({
       name,
       link,

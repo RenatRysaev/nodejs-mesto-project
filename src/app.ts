@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import celebrate from "celebrate";
 import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
+import cookieParser from "cookie-parser";
 import { Routes } from "./routes";
 import { Middlewares } from "./middlewares";
 
@@ -21,6 +22,7 @@ async function main() {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
   app.use(helmet());
 
   const limiter = rateLimit({
@@ -28,8 +30,6 @@ async function main() {
     limit: 100,
   });
   app.use(limiter);
-
-  app.use(Middlewares.authMiddleware);
 
   app.use(Routes.userRouter);
   app.use(Routes.cardRouter);
