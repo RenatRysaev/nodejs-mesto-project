@@ -10,5 +10,5 @@ export const notFoundMiddleware = (
     Shared.Constants.ERROR_MESSAGES.NOT_FOUND,
   );
 
-  res.status(notFoundError.status).json({ message: notFoundError.message });
+  return next(notFoundError);
 };

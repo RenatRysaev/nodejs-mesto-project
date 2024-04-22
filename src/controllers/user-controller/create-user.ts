@@ -21,7 +21,11 @@ export const createUser = async (
       avatar,
     });
 
-    res.status(Shared.Constants.HTTP_STATUS_CODES.CREATED).json(user);
+    const userToResponse = user.toObject();
+    type PartialUser = Partial<typeof userToResponse>;
+    delete (userToResponse as PartialUser).password;
+
+    res.status(Shared.Constants.HTTP_STATUS_CODES.CREATED).json(userToResponse);
   } catch (error) {
     next(error);
   }

@@ -35,10 +35,10 @@ async function main() {
   app.use(Routes.userRouter);
   app.use(Routes.cardRouter);
 
+  app.use(Middlewares.notFoundMiddleware);
   app.use(Middlewares.errorLoggerMiddleware);
   app.use(celebrate.errors());
   app.use(Middlewares.errorMiddleware);
-  app.use(Middlewares.notFoundMiddleware);
 
   app.listen(PORT, () => {
     console.info(`App listening on port ${PORT}`);
