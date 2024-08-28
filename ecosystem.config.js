@@ -24,7 +24,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: "https://github.com/RenatRysaev/nodejs-mesto-project.git",
       path: DEPLOY_PATH,
-      "pre-deploy": `sudo scp .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      "pre-deploy": `scp .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
       "post-deploy": "npm i && npm run build",
     },
   },
