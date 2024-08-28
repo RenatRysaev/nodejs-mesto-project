@@ -8,8 +8,6 @@ const {
   DEPLOY_REF = "origin/main",
 } = process.env;
 
-console.log("DEPLOY_USER", DEPLOY_USER);
-
 module.exports = {
   apps: [
     {
